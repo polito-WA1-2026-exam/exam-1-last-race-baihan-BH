@@ -1,0 +1,73 @@
+@baseUrl = http://localhost:3001/api
+@userid = player1
+@password = 12345678
+
+###
+# good login
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+    "username": "{{userid}}",
+    "password": "{{password}}"
+}
+
+###
+# bad login
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+    "userid": "{{userid}}",
+    "password": "{{password}}1"
+}
+
+###
+# check session
+GET {{baseUrl}}/sessions/current
+
+###
+# log out
+DELETE {{baseUrl}}/sessions/current
+
+###
+# get records
+GET {{baseUrl}}/games/records
+
+###
+# get network
+GET {{baseUrl}}/network
+
+###
+# get stations pairs
+GET {{baseUrl}}/games/setup
+
+###
+# submit
+POST {{baseUrl}}/games/submit
+content-type: application/json
+
+{
+    "segments": [
+        {
+            "from": "14",
+            "to": "10"
+        },
+        {
+            "from": "10",
+            "to": "7"
+        },
+        {
+            "from": "7",
+            "to": "6"
+        },
+        {
+            "from": "6",
+            "to": "7"
+        },
+        {
+            "from": "7",
+            "to": "6"
+        }
+    ]
+}
