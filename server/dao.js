@@ -48,6 +48,7 @@ export const getRecords = () => {
     db.all(sql, [], (err, rows) => {
       if (err) reject(err);
       const records = rows.map((row) => ({
+        id: row.record_id,
         username: row.username,
         score: row.score,
       }));
@@ -69,9 +70,20 @@ export const getNetwork = () => {
     `
     db.all(sqlStations, [], (err1, stations) => {
       if (err1) reject(err1);
+      const resStations = stations.map((station) => {
+        return {
+          id: station.station_id,
+          name: station.station_name,
+          position: {
+            x: station.position_x,
+            y: station.position_y
+          }
+        }
+      });
       db.all(sqlSegments, [], (err2, segments) => {
         if (err2) reject(err2);
-        resolve({ stations: stations, segments: segments });
+        resolve({
+          stations: resStations, segments: segments });
       })
     });
   });

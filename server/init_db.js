@@ -39,7 +39,9 @@ db.serialize(() => {
   db.run(`CREATE TABLE stations (
     station_id INTEGER PRIMARY KEY AUTOINCREMENT,
     station_name TEXT UNIQUE NOT NULL,
-    is_interchange BOOLEAN DEFAULT 0
+    is_interchange BOOLEAN DEFAULT 0,
+    position_x INTEGER NOT NULL,
+    position_y INTEGER NOT NULL
   )`);
 
   db.run(`CREATE TABLE lines (
@@ -78,21 +80,21 @@ db.serialize(() => {
   insertLine.run("Yellow Line");
   insertLine.finalize();
 
-  const insertStation = db.prepare(`INSERT INTO stations (station_name, is_interchange) VALUES (?, ?)`);
-  insertStation.run("Gucun Park", 0); 
-  insertStation.run("Jing'an Temple", 1);
-  insertStation.run("Dong'an Road", 0);
-  insertStation.run("Longyang Road", 0);
-  insertStation.run("Hongqiao Railway Station", 0);
-  insertStation.run("West Nanjing Road", 1);
-  insertStation.run("People's Square ", 1);
-  insertStation.run("Lujiazui", 0);
-  insertStation.run("Fujin Road", 0);
-  insertStation.run("Shanghai Railway Station", 1);
-  insertStation.run("Lujiabang Road", 0);
-  insertStation.run("Middle Huaihai Road", 0);
-  insertStation.run("Zhenping Road", 0);
-  insertStation.run("Hailun Road", 0);
+  const insertStation = db.prepare(`INSERT INTO stations (station_name, is_interchange, position_x, position_y) VALUES (?, ?, ?, ?)`);
+  insertStation.run("Gucun Park", 0, 250, 200); 
+  insertStation.run("Jing'an Temple", 1, 250, 300);
+  insertStation.run("Dong'an Road", 0, 250, 500);
+  insertStation.run("Longyang Road", 0, 750, 500);
+  insertStation.run("Hongqiao Railway Station", 0, 80, 300);
+  insertStation.run("West Nanjing Road", 1, 400, 300);
+  insertStation.run("People's Square ", 1, 550, 300);
+  insertStation.run("Lujiazui", 0, 700, 350);
+  insertStation.run("Fujin Road", 0, 550, 100);
+  insertStation.run("Shanghai Railway Station", 1, 550, 200);
+  insertStation.run("Lujiabang Road", 0, 550, 450);
+  insertStation.run("Middle Huaihai Road", 0, 400, 400);
+  insertStation.run("Zhenping Road", 0, 375, 200);
+  insertStation.run("Hailun Road", 0, 750, 200);
   insertStation.finalize();
 
   const insertSegment = db.prepare(`INSERT INTO segments (station_a_id, station_b_id, line_id) VALUES (?, ?, ?)`);

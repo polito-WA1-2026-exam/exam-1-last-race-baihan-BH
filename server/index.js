@@ -108,7 +108,7 @@ app.get("/api/games/setup", async (req, res) => {
 app.post("/api/games/submit", isLoggedIn, async (req, res) => {
   const { segments } = req.body;
   if (!Array.isArray(segments)) return res.status(422).json({ error: "paramater error" })
-  if (segments.length === 0) return res.status(201).json({ score: 0, results: [] })
+  if (segments.length === 0) return res.status(201).json({ score: 0, results: [], reason: "no route" })
   
   const expectedTask = req.session.gameTask;
   
