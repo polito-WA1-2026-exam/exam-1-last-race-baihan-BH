@@ -39,7 +39,6 @@ const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  // console.log(req.user)
   return res.status(401).json({ message: "Not authenticated" });
 }
 
@@ -122,7 +121,6 @@ app.post("/api/games/submit", isLoggedIn, async (req, res) => {
     const result = await addRecords(newSubmit);
     res.status(201).json(result);
   } catch(e) {
-    console.error(`ERROR: ${e.message}`);
     res.status(503).json({error: "Impossible to create the record."});
   }
 })
